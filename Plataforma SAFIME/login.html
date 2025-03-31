@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso CADE - SAFIME</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+        </style>
+</head>
+<header>
+    <img src="images/logo-uanl.png" alt="Logo UANL" class="logo-uanl">
+    <img src="images/logo-safime.png" alt="Logo SAFIME" class="logo-safime">
+    <img src="images/logo-fime.png" alt="Logo FIME" class="logo-fime">
+</header>
+<body>
+    <div id="login-container">
+        <h2>Iniciar Sesión</h2>
+        <form id="login-form">
+            <input type="text" id="username" placeholder="Usuario" required>
+            <input type="password" id="password" placeholder="Contraseña" required>
+            <button type="submit">Ingresar</button>
+        </form>
+    </div>
+
+    <div id="main-container" style="display: none;">
+        <button id="logout">Cerrar Sesión</button>
+        <h2>Escanear Código QR</h2>
+        <video id="qr-video"></video>
+        <p id="qr-result">Esperando escaneo...</p>
+        <button id="scan-qr">Escanear</button>
+
+        <form id="info-form" style="display: none;">
+            <input type="text" id="nombre" placeholder="Nombre" readonly>
+            <input type="text" id="matricula" placeholder="Matrícula" readonly>
+            <input type="text" id="carrera" placeholder="Carrera" readonly>
+            
+            <label for="asociacion">Asociación:</label>
+            <select id="asociacion">
+                <option>Allende</option>
+                <option>AMEF</option>
+                <option>ASEVER</option>
+                <option>Cadereyta</option>
+                <option>CBTis</option>
+                <option>Chihuahua</option>
+                <option>China</option>
+                <option>Durango</option>
+                <option>Ex-EIAO</option>
+                <option>FIME Verde</option>
+                <option>Frontera Chica</option>
+                <option>Hidalgo</option>
+                <option>Laredo</option>
+                <option>Linares</option>
+                <option>Matamoros</option>
+                <option>Monclova</option>
+                <option>Montemorelos</option>
+                <option>Oaxaca</option>
+                <option>Pacifico</option>
+                <option>Parras</option>
+                <option>Poza Rica</option>
+                <option>RC</option>
+                <option>Reynosa</option>
+                <option>Sabinas</option>
+                <option>San Luis Potosi</option>
+                <option>Santa Catarina</option>
+            </select>
+            
+            <label for="hora-llegada">Hora de llegada:</label>
+            <input type="text" id="hora-llegada" readonly>
+            
+            <label for="motivo">Motivo de visita:</label>
+            <select id="motivo">
+                <option>Convivencia con su asociación</option>
+                <option>Realizar tarea</option>
+                <option>Socializar</option>
+                <option>Pedir información</option>
+                <option value="otro">Otro</option>
+            </select>
+            <input type="text" id="otro-motivo" placeholder="Especifique el motivo" style="display: none;">
+            
+            <label for="area">Área de destino:</label>
+            <select id="area">
+                <option>Segundo piso</option>
+                <option>HUB</option>
+                <option>Sala de juntas</option>
+            </select>
+            
+            <button type="submit">Registrar Entrada</button>
+        </form>
+    </div>
+
+    <div id="menu-container" style="display: none;">
+        <h2>¿Qué deseas hacer?</h2>
+        <button id="nueva-entrada">Ingresar otro alumno</button>
+        <button id="ver-bd">Ver base de datos</button>
+        <button id="generar-reporte">Generar reporte</button>
+        <button id="logout-menu">Cerrar Sesión</button>
+    </div>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            document.getElementById('login-container').style.display = 'none';
+            document.getElementById('main-container').style.display = 'block';
+        });
+
+        document.getElementById('logout').addEventListener('click', function() {
+            document.getElementById('main-container').style.display = 'none';
+            document.getElementById('login-container').style.display = 'block';
+        });
+
+        document.getElementById('scan-qr').addEventListener('click', function() {
+            const datosQR = {
+                nombre: "Jesús Lopez Pérez",
+                matricula: "2003331",
+                carrera: "Ingeniería en Tecnología de Software"
+            };
+            document.getElementById('nombre').value = datosQR.nombre;
+            document.getElementById('matricula').value = datosQR.matricula;
+            document.getElementById('carrera').value = datosQR.carrera;
+            document.getElementById('hora-llegada').value = new Date().toLocaleTimeString();
+            document.getElementById('info-form').style.display = 'block';
+        });
+
+        document.getElementById('motivo').addEventListener('change', function() {
+            document.getElementById('otro-motivo').style.display = this.value === 'otro' ? 'block' : 'none';
+        });
+
+        document.getElementById('info-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            document.getElementById('main-container').style.display = 'none';
+            document.getElementById('menu-container').style.display = 'block';
+        });
+
+        document.getElementById('nueva-entrada').addEventListener('click', function() {
+            document.getElementById('menu-container').style.display = 'none';
+            document.getElementById('info-form').reset();
+            document.getElementById('info-form').style.display = 'none';
+            document.getElementById('main-container').style.display = 'block';
+        });
+
+        document.getElementById('ver-bd').addEventListener('click', function() {
+            alert('Funcionalidad en desarrollo: Ver base de datos');
+        });
+
+        document.getElementById('generar-reporte').addEventListener('click', function() {
+            alert('Funcionalidad en desarrollo: Generar reporte');
+        });
+
+        document.getElementById('logout-menu').addEventListener('click', function() {
+            document.getElementById('menu-container').style.display = 'none';
+            document.getElementById('login-container').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
