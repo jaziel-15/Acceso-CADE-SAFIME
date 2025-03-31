@@ -1,0 +1,6 @@
+# Ignorar el archivo .env
+.env
+
+# Ignorar otras configuraciones locales
+node_modules/
+.DS_Store
