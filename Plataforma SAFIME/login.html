@@ -5,29 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acceso CADE - SAFIME</title>
     <link rel="stylesheet" href="styles.css">
-    <script defer src="script.js"></script>
+    <script type="module" src="login.js"></script>
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
-        </style>
+    </style>
 </head>
-<header>
-    <img src="images/logo-uanl.png" alt="Logo UANL" class="logo-uanl">
-    <img src="images/logo-safime.png" alt="Logo SAFIME" class="logo-safime">
-    <img src="images/logo-fime.png" alt="Logo FIME" class="logo-fime">
-</header>
 <body>
+    <!-- Encabezado -->
+    <header>
+        <img src="images/logo-uanl.png" alt="Logo UANL" class="logo-uanl">
+        <img src="images/logo-safime.png" alt="Logo SAFIME" class="logo-safime">
+        <img src="images/logo-fime.png" alt="Logo FIME" class="logo-fime">
+    </header>
+
+    <!-- Contenedor del inicio de sesión -->
     <div id="login-container">
         <h2>Iniciar Sesión</h2>
         <form id="login-form">
             <input type="text" id="username" placeholder="Usuario" required>
-
-                <input type="password" id="password" placeholder="Contraseña" required>
-
+            <input type="password" id="password" placeholder="Contraseña" required>
             <button type="submit">Ingresar</button>
         </form>
+        <p>¿No tienes cuenta? <a href="#" id="show-register">Regístrate aquí</a></p>
     </div>
-    
 
+    <!-- Contenedor del registro -->
+    <div id="register-container" style="display: none;">
+        <h2>Registro de Usuario</h2>
+        <form id="register-form">
+            <input type="text" id="register-email" placeholder="Correo electrónico" required>
+            <input type="password" id="register-password" placeholder="Contraseña" required>
+            <button type="submit">Registrarse</button>
+        </form>
+        <p>¿Ya tienes cuenta? <a href="#" id="show-login">Inicia sesión aquí</a></p>
+    </div>
+
+    <!-- Contenedor principal -->
     <div id="main-container" style="display: none;">
         <button id="logout">Cerrar Sesión</button>
         <h2>Escanear Código QR</h2>
@@ -94,6 +108,7 @@
         </form>
     </div>
 
+    <!-- Menú principal -->
     <div id="menu-container" style="display: none;">
         <h2>¿Qué deseas hacer?</h2>
         <button id="nueva-entrada">Ingresar otro alumno</button>
@@ -101,61 +116,5 @@
         <button id="generar-reporte">Generar reporte</button>
         <button id="logout-menu">Cerrar Sesión</button>
     </div>
-
-    <script>
-        document.getElementById('login-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            document.getElementById('login-container').style.display = 'none';
-            document.getElementById('main-container').style.display = 'block';
-        });
-
-        document.getElementById('logout').addEventListener('click', function() {
-            document.getElementById('main-container').style.display = 'none';
-            document.getElementById('login-container').style.display = 'block';
-        });
-
-        document.getElementById('scan-qr').addEventListener('click', function() {
-            const datosQR = {
-                nombre: "Jesús Lopez Pérez",
-                matricula: "2003331",
-                carrera: "Ingeniería en Tecnología de Software"
-            };
-            document.getElementById('nombre').value = datosQR.nombre;
-            document.getElementById('matricula').value = datosQR.matricula;
-            document.getElementById('carrera').value = datosQR.carrera;
-            document.getElementById('hora-llegada').value = new Date().toLocaleTimeString();
-            document.getElementById('info-form').style.display = 'block';
-        });
-
-        document.getElementById('motivo').addEventListener('change', function() {
-            document.getElementById('otro-motivo').style.display = this.value === 'otro' ? 'block' : 'none';
-        });
-
-        document.getElementById('info-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            document.getElementById('main-container').style.display = 'none';
-            document.getElementById('menu-container').style.display = 'block';
-        });
-
-        document.getElementById('nueva-entrada').addEventListener('click', function() {
-            document.getElementById('menu-container').style.display = 'none';
-            document.getElementById('info-form').reset();
-            document.getElementById('info-form').style.display = 'none';
-            document.getElementById('main-container').style.display = 'block';
-        });
-
-        document.getElementById('ver-bd').addEventListener('click', function() {
-            alert('Funcionalidad en desarrollo: Ver base de datos');
-        });
-
-        document.getElementById('generar-reporte').addEventListener('click', function() {
-            alert('Funcionalidad en desarrollo: Generar reporte');
-        });
-
-        document.getElementById('logout-menu').addEventListener('click', function() {
-            document.getElementById('menu-container').style.display = 'none';
-            document.getElementById('login-container').style.display = 'block';
-        });
-    </script>
 </body>
 </html>
